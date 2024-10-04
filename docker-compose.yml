@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: vladislav
+      POSTGRES_PASSWORD: examplePass142
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432"
+
+  test_db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: vladislav
+      POSTGRES_PASSWORD: examplePass
+      POSTGRES_DB: test_db
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
